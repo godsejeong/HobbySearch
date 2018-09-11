@@ -1,11 +1,17 @@
 package com.hobbysearch;
 
+import android.Manifest;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("관심사 등록");
+        getPermission();
+
         //xml에 있는 id 연동
         interEt = findViewById(R.id.interEt);
         interSave = findViewById(R.id.interSave);
@@ -109,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         //에러가 발생하면
         @Override
         public void onError(int i) {
-
+            Toast.makeText(context,"음성인식에 실패하였습니다. 다시 시도해주세요",Toast.LENGTH_SHORT).show();
         }
         //음성 인식 결과 받음
         @Override
@@ -143,6 +151,35 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("inter",save);
         editor.commit();
-
     }
+
+
+
+    //권한 설정
+    public void getPermission()
+    {
+        if ((ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED))
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{android.Manifest.permission.RECORD_AUDIO},0);
+        }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        if (requestCode == 0)
+        {
+            if (grantResults[0] != 0)
+            {
+                Toast.makeText(this, "권한이 거절 되었습니다. 어플을 이용하려면 권한을 승낙하여야 합니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+
 }
+
+
