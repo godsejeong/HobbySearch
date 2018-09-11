@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("관심사 등록");
         //xml에 있는 id 연동
         interEt = findViewById(R.id.interEt);
         interSave = findViewById(R.id.interSave);
