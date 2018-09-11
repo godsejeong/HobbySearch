@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     SpeechRecognizer recognizer;
     Context context = this;
     String interests;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         interSave = findViewById(R.id.interSave);
         interHelp = findViewById(R.id.interHelp);
         interVoice = findViewById(R.id.interVoice);
+
+        if(!interLoad().isEmpty()){
+            Intent intent = new Intent(context,InterMenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         interSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 //현재 엑티비티의 정보를 넣어줌
                 recognizer.setRecognitionListener(listener);
                 //음성인식 리스너로 연결
+                recognizer.startListening(intent);
+                //음성인식 실행
             }
         });
     }
@@ -145,6 +154,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    //관심사 설정내용을 SharedPreferences에서 가져온다
+    public String interLoad() {
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        return pref.getString("inter", "");
+    }
+
     //sharedpreferences에 관심사를 저장
     public void intersave(String save){
         SharedPreferences pref = getSharedPreferences("pref",MODE_PRIVATE);
@@ -152,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("inter",save);
         editor.commit();
     }
-
-
 
     //권한 설정
     public void getPermission()
@@ -163,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{android.Manifest.permission.RECORD_AUDIO},0);
         }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -178,8 +191,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
 
 
