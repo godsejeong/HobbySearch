@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:weightSum="3.5"
+    android:orientation="vertical"
+    tools:context=".InterMenuActivity">
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="관심사 배우기"
+        android:textSize="30sp"
+        android:textColor="#FFF"
+        android:background="#59baff"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="관심사 소식/정보"
+        android:textSize="30sp"
+        android:textColor="#FFF"
+        android:layout_marginTop="20dp"
+        android:background="#5996ff"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="관심사 재설정"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFF"
+        android:background="#5c59ff"
+        android:layout_weight="1"/>
+
+</LinearLayout>
